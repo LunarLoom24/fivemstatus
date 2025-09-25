@@ -9,17 +9,16 @@ export default {
         }
       });
 
-      const data = await response.json(); // Parse JSON
-
-      return new Response(JSON.stringify(data), {
-        status: 200,
+      // Return response as JSON with CORS headers
+      return new Response(await response.text(), {
+        status: response.status,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
         }
       });
     } catch (err) {
-      return new Response(JSON.stringify({ error: "Worker fetch failed", details: err.message }), {
+      return new Response(JSON.stringify({ error: "Worker fetch failed" }), {
         status: 500,
         headers: { "Content-Type": "application/json" }
       });
